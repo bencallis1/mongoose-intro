@@ -5,24 +5,42 @@ var express = require('express'),
     app = express();
 
 
-// Add Controllers
+// Controllers
+// We will need to add a refrence to our userCtrl
+
+var userCtrl = require('./userController');
 
 
-
-// Add some middleware
+// Middleware
 app.use(bodyParser.json());
 app.use(cors());
 
 
-// Add  Endpoints
 
 
+// Add Endpoints and mount controller to them
+
+app.post('/users', userCtrl.create);
+app.get('/users', userCtrl.read);
+app.put('/users/:id', userCtrl.update);
+app.delete('/users/:id', userCtrl.delete);
+
+// Create gt that returns all users
 
 
-// Mongo URi
-var mongoUri = 'mongodb://localhost:27017/devblog';
 
 // Connect mongoose
+
+var mongoUri = 'mongodb://localhost:27017/devblog';
+
+mongoose.set('debug', true);
+
+// The connection happens here
+mongoose.connect(mongoUri);
+
+mongoose.connection.once('open', function() {
+    console.log('connected to mongoDB at: ', mongoUri);
+});
 
 
 app.listen(3000, function() {

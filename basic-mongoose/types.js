@@ -1,7 +1,7 @@
 /**
  * Created by Ben on 7/7/16.
  */
-
+var mongoose = require('mongoose');
 
 // Here is an example of a DogSchema
 // I listed a bunch of different types that we can use we making a schema
